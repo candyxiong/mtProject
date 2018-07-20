@@ -1,13 +1,13 @@
 <template>
-  <div class="hello">
-
+  <div class="ratings">
+    <h2>我是评价</h2>
   </div>
 </template>
 
 <script>
-export default {
+  export default {
 
-}
+  }
 </script>
 
 <style scoped>
