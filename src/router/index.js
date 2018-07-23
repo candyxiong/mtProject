@@ -13,5 +13,6 @@ export default new Router({
     {path:'/ratings',component:Ratings},
     {path:'/seller',component:Seller},
   ],
-  mode:'history'
+  mode:'history',
+  linkActiveClass:'active'
 })
