@@ -23,6 +23,9 @@
             <img class="icon" :src="item.icon" v-if="item.icon" />
             {{item.name}}
           </p>
+          <i class="num" v-show="calculateCount(item.spus)">
+            {{calculateCount(item.spus)}}
+          </i>
         </li>
       </ul>
     </div>
@@ -67,7 +70,7 @@
     </div>
 
     <!-- 购物车 -->
-    <app-shopcart :poiInfo="poiInfo"></app-shopcart>
+    <app-shopcart :poiInfo="poiInfo" :selectFoods="selectFoods"></app-shopcart>
   </div>
 </template>
 
@@ -119,15 +122,22 @@
           height += item.clientHeight
           this.listHeight.push(height)
         }
-        //console.log(this.listHeight)
       },
       selectMenu(index){
-        //console.log(index)
         let foodlist = this.$refs.foodScroll.getElementsByClassName("food-list-hook")
         let element = foodlist[index]   //被点击中的下标对应内容
 
         // 滚动到对应元素的位置，better-scroll事件
         this.foodScroll.scrollToElement(element,250)
+      },
+      calculateCount(spus){
+        let count = 0
+        spus.forEach((food) => {
+          if(food.count > 0){
+            count += food.count
+          }
+        })
+        return count
       }
     },
     created(){
@@ -167,6 +177,18 @@
           }
         }
         return 0
+      },
+      //监听点菜页面加减控件变化，传到购物车页面
+      selectFoods(){
+        let foods = []
+        this.goods.forEach((myfoods) => {
+          myfoods.spus.forEach((food) => {
+            if(food.count > 0){
+              foods.push(food)
+            }
+          })
+        })
+        return foods
       }
     }
   }
