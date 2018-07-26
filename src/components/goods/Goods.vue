@@ -57,26 +57,39 @@
                   <span class="unit">/{{food.unit}}</span>
                 </p>
               </div>
+              <div class="cartcontrol-wrapper">
+                <app-cart-control :food="food"></app-cart-control>
+              </div>
             </li>
           </ul>
         </li>
       </ul>
     </div>
+
+    <!-- 购物车 -->
+    <app-shopcart :poiInfo="poiInfo"></app-shopcart>
   </div>
 </template>
 
 <script>
   import BScroll from 'better-scroll'
+  import Shopcart from '../shopcart/Shopcart'
+  import CartControl from '../cartcontrol/CartControl'
   export default {
     data(){
       return{
         container:{},
         goods:[],
+        poiInfo:{},
         listHeight:[],
         menuScroll:{},
         foodScroll:{},
         scrollY:0
       }
+    },
+    components:{
+      "app-shopcart":Shopcart,
+      "app-cart-control":CartControl
     },
     methods:{
       head_bg(imgName){
@@ -84,7 +97,7 @@
       },
       initScroll(){
         this.menuScroll = new BScroll(this.$refs.menuScroll)
-        this.foodScroll = new BScroll(this.$refs.foodScroll,{probeType:3})
+        this.foodScroll = new BScroll(this.$refs.foodScroll,{probeType:3,click:true})
 
         // foodScroll 监听事件  better-scroll事件
         this.foodScroll.on("scroll",(pos) => {
@@ -125,6 +138,7 @@
           if(response.code == 0){
             this.container = response.data.container_operation_source
             this.goods = response.data.food_spu_tags
+            this.poiInfo = response.data.poi_info
 
             //DOM已经更新
             this.$nextTick(() => {
