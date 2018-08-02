@@ -108,7 +108,9 @@
         return "background-image: url(" + imgName + ");"
       },
       initScroll(){
-        this.menuScroll = new BScroll(this.$refs.menuScroll)
+        this.menuScroll = new BScroll(this.$refs.menuScroll,{
+          click:true
+        })
         this.foodScroll = new BScroll(this.$refs.foodScroll,{probeType:3,click:true})
 
         // foodScroll 监听事件  better-scroll事件
