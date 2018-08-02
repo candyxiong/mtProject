@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <app-header :poiInfo="poiInfo"></app-header>
-    <app-nav></app-nav>
+    <app-nav :commentNum="commentNum"></app-nav>
     <router-view></router-view>
   </div>
 </template>
@@ -14,7 +14,8 @@ export default {
   name: 'App',
   data(){
     return{
-      poiInfo:{}
+      poiInfo:{},
+      commentNum:0
     }
   },
   components: {
@@ -26,8 +27,18 @@ export default {
       .then(res => res.json())
       .then(response => {
         console.log(response)
+        if(response.code == 0){
+            this.poiInfo = response.data.poi_info
+        }
+      })
+    // 请求ratings
+    fetch("/api/ratings")
+    .then(res => {
+      return res.json()
+    })
+    .then(response =>{
       if(response.code == 0){
-          this.poiInfo = response.data.poi_info
+        this.commentNum = response.data.comment_num; //评价总数
       }
     })
   }
