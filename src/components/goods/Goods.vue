@@ -113,17 +113,15 @@
         })
         this.foodScroll = new BScroll(this.$refs.foodScroll,{probeType:3,click:true})
 
-        // foodScroll 监听事件  better-scroll事件
+        // foodScroll 监听事件，实时获取滚动高度  better-scroll事件
         this.foodScroll.on("scroll",(pos) => {
-           //console.log(pos.y)
           this.scrollY = Math.abs(Math.round(pos.y))
-          //console.log(this.scrollY)
         })
       },
+      //获取叠加高度
       calculateHeight(){
-        //获取元素
+        //获取单个元素
         let foodlist = this.$refs.foodScroll.getElementsByClassName("food-list-hook")
-        //console.log(foodlist)
         let height = 0
         this.listHeight.push(height)
 
@@ -137,7 +135,6 @@
       selectMenu(index){
         let foodlist = this.$refs.foodScroll.getElementsByClassName("food-list-hook")
         let element = foodlist[index]   //被点击中的下标对应内容
-
         // 滚动到对应元素的位置，better-scroll事件
         this.foodScroll.scrollToElement(element,250)
       },
@@ -164,7 +161,7 @@
             this.container = response.data.container_operation_source
             this.goods = response.data.food_spu_tags
             this.poiInfo = response.data.poi_info
-
+            console.log(this.goods)
             //DOM已经更新
             this.$nextTick(() => {
               // 执行滚动方法

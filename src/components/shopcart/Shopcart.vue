@@ -103,6 +103,7 @@
       }
     },
     computed:{
+      //总数量
       totalCount(){
         let num = 0
 
@@ -111,6 +112,7 @@
         })
         return num
       },
+      //总价格
       totalPrice(){
         let total = 0
         this.selectFoods.forEach((food) => {
